@@ -17,13 +17,15 @@ import gc
 from path import Path
 from keras.src.layers import Dense, Activation, Flatten, Dropout, BatchNormalization
 from keras.src.models import Sequential, Model
-from keras.src.models import load_model
+# from keras.models import load_model
+from keras import models
 from keras.src.layers import Conv2D, MaxPooling2D
 from keras import regularizers, optimizers
 import pandas as pd
 import numpy as np
 from keras_preprocessing.image import ImageDataGenerator
 import pickle
+
 
 
 # Ham doi duoi tu wav sang png
@@ -70,8 +72,8 @@ STEP_SIZE_TEST = test_generator.n // test_generator.batch_size
 test_generator.reset()
 
 # Load model da train
-model = load_model("model.h5")
-pred = model.predict_generator(test_generator, steps=STEP_SIZE_TEST, verbose=1)
+model = models.load_model("model.h5")
+pred = model.predict(test_generator, steps=STEP_SIZE_TEST, verbose=1)
 
 
 # Lay class predict probality lon nhat

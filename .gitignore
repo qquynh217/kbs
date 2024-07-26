@@ -1,1 +1,4 @@
 data/*
+model_indices.pickle
+model.h5
+*.zip

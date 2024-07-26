@@ -121,7 +121,7 @@ model.add(Flatten())
 model.add(Dense(512))
 model.add(Activation("relu"))
 model.add(Dropout(0.5))
-model.add(Dense(97, activation="softmax"))
+model.add(Dense(86, activation="softmax"))
 model.compile(
     optimizers.RMSprop(learning_rate=0.0005, weight_decay=1e-6),
     loss="categorical_crossentropy",
@@ -169,11 +169,11 @@ STEP_SIZE_VALID = valid_generator.n // valid_generator.batch_size
 
 # Train model
 model.fit(
-    # train_generator=train_generator,
+    train_generator,
     steps_per_epoch=STEP_SIZE_TRAIN,
     validation_data=valid_generator,
     validation_steps=STEP_SIZE_VALID,
-    epochs=10,
+    epochs=200,
     verbose=1,
 )
 

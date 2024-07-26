@@ -38,7 +38,7 @@ def create_spectrogram(filename, name, file_path):
     ax.axes.get_xaxis().set_visible(False)
     ax.axes.get_yaxis().set_visible(False)
     ax.set_frame_on(False)
-    S = librosa.feature.melspectrogram(y=clip, sr=sample_rate)
+    S = librosa.feature.mfcc(y=clip, sr=sample_rate)
     librosa.display.specshow(librosa.power_to_db(S, ref=np.max))
     filename = file_path + name + ".png"
     print(filename)
@@ -56,18 +56,19 @@ Data_dir = os.listdir(wav_path + "train")
 # 76=>83
 # 171=>178
 index = 0
-with open("train-error-1.txt", "w", encoding="utf-8") as f:
-    for file in Data_dir[76:84]:
+with open("train-error.txt", "w", encoding="utf-8") as f:
+    for file in Data_dir[566:574]:
         print(file)
         try:
             filename = wav_path + "train/" + file
             create_spectrogram(filename, file[:-4], train_data_path)
 
         except:
-            f.write(str(index) + ". " + file)
+            f.write(str(index) + ". " + file + "\n")
             pass
         index += 1
-# filename, name = file, file.split("/")[-1].split(".")[0]
+
+print("Train done!")
 
 gc.collect()
 
@@ -76,19 +77,18 @@ gc.collect()
 Test_dir = os.listdir(wav_path + "test")
 
 index = 0
-# with open("test-error.txt", "w", encoding="utf-8") as f:
-#     for file in Test_dir[0:10]:
-#         print(file)
-#         try:
-#             filename = wav_path + "test/" + file
-#             create_spectrogram(filename, file[:-4], test_data_path)
+with open("test-error.txt", "w", encoding="utf-8") as f:
+    for file in Test_dir[0:10]:
+        print(file)
+        try:
+            filename = wav_path + "test/" + file
+            create_spectrogram(filename, file[:-4], test_data_path)
 
-#         except:
-#             f.write(str(index) + ". " + file + "\n")
-#             pass
-#         index += 1
-# filename, name = file, file.split("/")[-1].split(".")[0]
-# create_spectrogram(filename, name, test_data_path)
+        except:
+            f.write(str(index) + ". " + file + "\n")
+            pass
+        index += 1
+
 
 gc.collect()
 
